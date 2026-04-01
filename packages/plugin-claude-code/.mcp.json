@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "dingdawg-governance": {
+      "command": "npx",
+      "args": ["dingdawg-governance"],
+      "env": {
+        "DINGDAWG_API_KEY": ""
+      }
+    }
+  }
+}
