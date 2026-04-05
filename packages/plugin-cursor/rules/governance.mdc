@@ -1,0 +1,106 @@
+---
+description: DingDawg Governance rules — validate, receipt, rollback
+globs: ["**/*"]
+alwaysApply: false
+---
+
+# DingDawg Governance Rules
+
+These rules apply whenever the DingDawg Governance plugin is active. They define
+what the AI must do before, during, and after any operation that modifies state.
+
+---
+
+## Rule 1 — Validate before destructive operations
+
+Before executing any of the following, call `validate_action` on the
+`dingdawg-governance` MCP server:
+
+- Writing or overwriting a file
+- Deleting a file or directory
+- Running a terminal command
+- Sending a network request (POST, PUT, PATCH, DELETE)
+- Applying code changes to a file outside the current project root
+
+If `validate_action` returns `decision: block`:
+- Stop. Do not execute the operation.
+- Display the block reason to the developer.
+- Propose an alternative approach that satisfies the governance policy.
+- Never attempt variations of the blocked action to circumvent governance.
+
+If the governance server is unreachable, proceed with the operation. Governance
+gracefully degrades — it never becomes a blocker.
+
+---
+
+## Rule 2 — Generate receipts for all write operations
+
+After any of the following completes successfully, call `generate_receipt`:
+
+- File write or edit
+- File delete
+- Terminal command execution
+- Network request that modifies state
+
+Include in the receipt payload:
+- The operation type and its parameters
+- Whether the operation succeeded
+- A timestamp
+
+Display the returned receipt ID inline (e.g., `[receipt: gvn_01J5KX2]`). Keep
+it to one line. Do not disrupt the conversation flow.
+
+---
+
+## Rule 3 — Capture rollback state for file modifications
+
+Before overwriting any file that already exists on disk, call
+`capture_rollback_state` with:
+- The file path
+- The current file contents
+
+This ensures the developer can restore the prior version by referencing the
+receipt ID, without relying on version control.
+
+---
+
+## Rule 4 — Session start governance check
+
+At the start of every session, call `check_status` to confirm:
+- Governance server connectivity
+- Current plan and action budget
+- Active governance mode (normal or degraded)
+
+If `mode: degraded`, inform the developer once. Do not repeat the warning.
+
+---
+
+## Rule 5 — Rollback on request
+
+If the developer requests a rollback (e.g., "undo gvn_01J5KX2" or "roll back
+that last edit"), call `rollback_action` with the receipt ID. After the restore
+completes, confirm what was changed and what state the file or resource is now in.
+
+---
+
+## Rule 6 — Read-only operations are exempt
+
+The following do not require validation or receipts:
+
+- Reading files
+- Searching or grepping the codebase
+- Viewing directory contents
+- Fetching pages for research (GET requests)
+
+Apply no governance overhead to pure exploration.
+
+---
+
+## Governance server
+
+Served by the `dingdawg-governance` MCP server registered in `mcp.json`.
+All tools communicate over the local MCP protocol — no external network calls
+are made unless the governance server itself routes them.
+
+Documentation: https://dingdawg.com/governance/docs
+Dashboard: https://app.dingdawg.com/governance

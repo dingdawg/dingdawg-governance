@@ -1,0 +1,45 @@
+{
+  "name": "dingdawg-governance-mcp",
+  "version": "1.0.0",
+  "description": "Governed AI execution via MCP. Receipted. Rollback-ready.",
+  "license": "MIT",
+  "main": "dist/server.js",
+  "bin": {
+    "dingdawg-governance": "dist/server.js"
+  },
+  "keywords": [
+    "mcp",
+    "governance",
+    "ai",
+    "compliance",
+    "audit",
+    "claude-code",
+    "dingdawg"
+  ],
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dingdawg/governance-mcp"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "tsx src/server.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "tsx": "^4.0.0",
+    "@types/node": "^20.0.0"
+  }
+}

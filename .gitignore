@@ -1,0 +1,25 @@
+# Internal documents — NEVER publish
+SPEC.md
+ARCHITECTURE.md
+IP_SAFETY.md
+LAUNCH_READINESS.md
+EDGE_CASES_AND_THREATS.md
+
+# Internal API bridge — contains MiLA imports, NEVER publish
+api/
+
+# Python
+__pycache__/
+*.pyc
+.env
+.env.*
+*.db
+
+# Node
+node_modules/
+dist/
+*.map
+
+# IDE
+.vscode/
+.idea/

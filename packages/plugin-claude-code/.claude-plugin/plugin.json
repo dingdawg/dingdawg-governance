@@ -1,0 +1,11 @@
+{
+  "name": "DingDawg Governance",
+  "version": "0.1.0",
+  "description": "Governed AI execution. Every action receipted, capability-gated, and rollback-ready.",
+  "author": "DingDawg",
+  "homepage": "https://dingdawg.com/governance",
+  "repository": "https://github.com/dingdawg/governance-mcp",
+  "license": "MIT",
+  "keywords": ["governance", "compliance", "ai-safety", "audit"],
+  "categories": ["security", "compliance"]
+}
