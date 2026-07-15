@@ -1,5 +1,5 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "$schema": "https://glama.ai/mcp/schemas/server.json",
   "name": "io.github.dingdawg/dingdawg-governance",
   "description": "Fail-closed AI agent governance \u2014 approve or block agent actions in real time, score compliance risk, and generate tamper-evident receipts. Free tier: 10 governed actions/day. Upgrade for unlimited + Ed25519-signed audit receipts.",
   "repository": {
