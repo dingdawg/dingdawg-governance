@@ -1,12 +1,11 @@
-FROM node:20-alpine AS build
+FROM node:20-slim AS build
 WORKDIR /app
 COPY packages/mcp-server/package*.json ./
 RUN npm install
 COPY packages/mcp-server/ .
-ENV NODE_OPTIONS=--max-old-space-size=4096
 RUN npm run build
 
-FROM node:20-alpine
+FROM node:20-slim
 WORKDIR /app
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/package.json ./
